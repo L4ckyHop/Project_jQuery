@@ -1,0 +1,280 @@
+ :root {
+      --color-bg: #ffffff;
+      --color-text: #6b7280;
+      --color-heading: #111827;
+      --color-primary: #111827;
+      --color-primary-hover: #374151;
+      --color-card-bg: #f9fafb;
+      --color-border: #e5e7eb;
+      --radius: 0.75rem;
+      --shadow: 0 2px 6px rgba(0,0,0,0.05);
+      --transition: 0.3s ease;
+      --font-heading: 'Poppins', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@600&display=swap');
+
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    /* Header */
+    header {
+      width: 100%;
+      max-width: 1200px;
+      padding-bottom: 2rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--color-border);
+      text-align: center;
+    }
+    header h1 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 3rem;
+      color: var(--color-heading);
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    /* Filters and sorting */
+    .filters-sort {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+      margin-bottom: 2rem;
+      justify-content: space-between;
+    }
+
+    /* Filter group */
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      max-width: 320px;
+      flex: 1 1 300px;
+    }
+    .filter-group label {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      font-size: 1rem;
+    }
+    .filter-group input[type="text"],
+    .filter-group select {
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      transition: border-color var(--transition);
+      background-color: white;
+      color: var(--color-text);
+      font-family: var(--font-body);
+    }
+    .filter-group input[type="text"]:focus,
+    .filter-group select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(17,24,39,0.15);
+    }
+
+    /* Sort buttons */
+    .sort-buttons {
+      display: flex;
+      align-items: flex-end;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .sort-buttons button {
+      padding: 0.55rem 1.25rem;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      border: 2px solid var(--color-primary);
+      background: transparent;
+      color: var(--color-primary);
+      border-radius: var(--radius);
+      transition: background-color var(--transition), color var(--transition), transform var(--transition);
+      user-select: none;
+    }
+    .sort-buttons button:hover,
+    .sort-buttons button:focus {
+      background-color: var(--color-primary);
+      color: white;
+      transform: scale(1.05);
+      outline: none;
+    }
+    .sort-buttons button.active {
+      background-color: var(--color-primary);
+      color: white;
+      cursor: default;
+      transform: none;
+    }
+
+    /* Movie list grid */
+    .movie-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+      gap: 1.5rem;
+      width: 100%;
+      margin-bottom: 3rem;
+    }
+    .movie-card {
+      background: var(--color-card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: box-shadow var(--transition);
+      cursor: default;
+    }
+    .movie-card:hover {
+      box-shadow: 0 6px 16px rgba(17,24,39,0.15);
+    }
+    .movie-poster {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      flex-shrink: 0;
+      background-color: #e5e7eb;
+    }
+    .movie-content {
+      padding: 1rem 1rem 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .movie-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin: 0 0 0.25rem;
+      color: var(--color-primary);
+    }
+    .movie-meta {
+      font-size: 0.875rem;
+      color: var(--color-text);
+      margin-bottom: 0.75rem;
+    }
+    .movie-description {
+      flex-grow: 1;
+      font-size: 0.9rem;
+      color: var(--color-text);
+      line-height: 1.3;
+      margin-bottom: 0;
+      white-space: pre-line;
+    }
+
+    /* Add Movie Form */
+    .add-movie-section {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--color-card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+    }
+    .add-movie-section h2 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--color-primary);
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    label {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--color-primary);
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      transition: border-color var(--transition);
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background-color: white;
+      width: 100%;
+      resize: vertical;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(17,24,39,0.15);
+    }
+    textarea {
+      min-height: 80px;
+    }
+
+    .error-message {
+      color: #dc2626; /* red-600 */
+      font-size: 0.875rem;
+      margin-top: -0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    button[type="submit"] {
+      align-self: center;
+      background-color: var(--color-primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background-color var(--transition), transform var(--transition);
+      user-select: none;
+    }
+    button[type="submit"]:hover,
+    button[type="submit"]:focus {
+      background-color: var(--color-primary-hover);
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .filters-sort {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .sort-buttons {
+        justify-content: flex-start;
+      }
+    }

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="index.css">
+  <title>СoLu Critics</title>
+  <style>
+    /* CSS variables for colors and fonts */
+   
+  </style>
+</head>
+<body>
+  <header>
+    <h1>СoLu Critics</h1>
+  </header>
+  <main class="container" role="main">
+    <section aria-label="Filter and search movies" class="filters-sort" id="filtersSortSection">
+      <div class="filter-group">
+        <label for="searchTitle">Введите название Фильма
+        </label>
+        <input type="text" id="searchTitle" name="searchTitle" placeholder="Название..." autocomplete="off" />
+      </div>
+      <div class="filter-group">
+        <label for="filterGenre">Введите жанр</label>
+        <select id="filterGenre" name="filterGenre" aria-label="Filter by Genre">
+          <option value="">Все жанры</option>
+          <option value="Экшен">Экшен</option>
+          <option value="Драмма">Драмма</option>
+          <option value="Комедия">Комедия</option>
+          <option value="Ужастик">Ужастик</option>
+          <option value="Фантастика">Фантастика</option>
+          <option value="Роман">Роман</option>
+        </select>
+      </div>
+      <div class="sort-buttons" role="group" aria-label="Sort movies">
+        <button type="button" id="sortRating" aria-pressed="false">Сортировать по рейтингу</button>
+        <button type="button" id="sortYear" aria-pressed="false">Сортировать по году выпуска</button>
+      </div>
+    </section>
+
+    <section aria-label="Movie list" id="movieList" class="movie-list" tabindex="0" aria-live="polite">
+      <!-- Movie cards inserted here by JS -->
+    </section>
+
+    <section class="add-movie-section" aria-label="Add a new movie">
+      <h2>Добавить новый фильм</h2>
+      <form id="addMovieForm" novalidate>
+        <div>
+          <label for="movieTitle">Название *</label>
+          <input type="text" id="movieTitle" name="movieTitle" required />
+          <div class="error-message" id="errorTitle"></div>
+        </div>
+        <div>
+          <label for="movieYear">Год выпуска *</label>
+          <input type="number" id="movieYear" name="movieYear" min="1800" max="2100" required />
+          <div class="error-message" id="errorYear"></div>
+        </div>
+        <div>
+          <label for="movieGenre">Жанр *</label>
+          <select id="movieGenre" name="movieGenre" required>
+            <option value="" disabled selected>Выберите жанр</option>
+            <option value="Action">Экшен</option>
+            <option value="Drama">Драмма</option>
+            <option value="Comedy">Комедия</option>
+            <option value="Horror">Ужастик</option>
+            <option value="Sci-Fi">Фантастика</option>
+            <option value="Romance">Роман</option>
+          </select>
+          <div class="error-message" id="errorGenre"></div>
+        </div>
+        <div>
+          <label for="movieRating">Рейтинг (0-10) *</label>
+          <input type="number" id="movieRating" name="movieRating" min="0" max="10" step="0.1" required />
+          <div class="error-message" id="errorRating"></div>
+        </div>
+        <div>
+          <label for="movieDescription">Описание</label>
+          <textarea id="movieDescription" name="movieDescription" placeholder="Введите описание..."></textarea>
+        </div>
+        <div>
+          <label for="moviePosterURL">Постер URL</label>
+          <input type="text" id="moviePosterURL" name="moviePosterURL" placeholder="https://example.com/poster.jpg" />
+        </div>
+        <button type="submit">Добавить Фильм</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    // Movie data initially
+    let movies = [
+      {
+        title: "Начало",
+        year: 2010,
+        genre: "Фантастика",
+        rating: 8.8,
+        description: "Ваш разум - место преступления.",
+        posterURL: "472809.jpg"
+      },
+      {
+        title: "Темный рыцарь",
+        year: 2008,
+        genre: "Экшен",
+        rating: 9.0,
+        description: "Бэтмен поднимает ставки в войне с криминалом. С помощью лейтенанта Джима Гордона и прокурора Харви Дента он намерен очистить улицы от преступности, отравляющей город. Сотрудничество оказывается эффективным, но скоро они обнаружат себя посреди хаоса, развязанного восходящим криминальным гением, известным испуганным горожанам под именем Джокер..",
+        posterURL: "35432-1000x830.jpg"
+      },
+      {
+        title: "Форест гамп",
+        year: 1994,
+        genre: "Драмма",
+        rating: 8.8,
+        description: "Форрест Гамп – история необычной жизни простого парня, который стал участником многих исторических событий и пережил множество приключений..",
+        posterURL: "22041.jpg"
+      },
+      {
+        title: "Иван Васильевич меняет профессию",
+        year: 1973,
+        genre: "Комедия",
+        rating: 8.8,
+        description: "Инженер-изобретатель Тимофеев сконструировал машину времени, которая соединила его квартиру с далеким шестнадцатым веком — точнее, с палатами государя Ивана Грозного. Туда-то и попадают тезка царя пенсионер-общественник Иван Васильевич Бунша и квартирный вор Жорж Милославский..",
+        posterURL: "213451.jpg"
+      },
+      {
+        title: "Оно",
+        year: 2017,
+        genre: "Ужастик",
+        rating: 7.3,
+        description: "Семеро друзей из вымышленного города Дерри в штате Мэн сражаются с монстром Оно, убивающим детей и способным принять любой физический облик, основанный на глубочайших страхах своих жертв (несмотря на то, что часто принимает облик клоуна Пеннивайза)..",
+        posterURL: "w1500_51624444.jpg"
+      },
+       {
+        title: "Зеленый Слоник",
+        year: 1999,
+        genre: "Драмма",
+        rating: 5.7,
+        description: "Тема фильма — отношения между армейскими офицерами в условиях закрытого общества военной части. Два главных героя — младшие офицеры, находящиеся на гауптвахте, сидя в одной камере, вынуждены решать острые социальные и психологические проблемы в небольшом пространстве. Реалистичность диалогов и декораций взрывается внутренним абсурдом поступков и брутальностью мотиваций персонажей..",
+        posterURL: "500px-Зелёный_слоник.jpg"
+      }
+    ];
+
+    // Current filter and sort state
+    const filters = {
+      searchText: '',
+      genre: ''
+    };
+    let sortCriteria = ''; // 'rating' or 'year'
+
+    // DOM references
+    const searchInput = document.getElementById('searchTitle');
+    const genreSelect = document.getElementById('filterGenre');
+    const sortRatingBtn = document.getElementById('sortRating');
+    const sortYearBtn = document.getElementById('sortYear');
+    const movieListEl = document.getElementById('movieList');
+    const addMovieForm = document.getElementById('addMovieForm');
+
+    // Filter function
+    function filterMovies(movies, filters) {
+      return movies.filter(movie => {
+        const matchesTitle = movie.title.toLowerCase().includes(filters.searchText.toLowerCase());
+        const matchesGenre = filters.genre ? movie.genre === filters.genre : true;
+        return matchesTitle && matchesGenre;
+      });
+    }
+
+    // Sort function
+    function sortMovies(movies, criteria) {
+      if (!criteria) return movies;
+      const sorted = [...movies];
+      if (criteria === 'rating') {
+        sorted.sort((a, b) => b.rating - a.rating);
+      } else if (criteria === 'year') {
+        sorted.sort((a, b) => b.year - a.year);
+      }
+      return sorted;
+    }
+
+    // Render function
+    function renderMovies() {
+      let filtered = filterMovies(movies, filters);
+      let sorted = sortMovies(filtered, sortCriteria);
+
+      movieListEl.innerHTML = '';
+      if (sorted.length === 0) {
+        movieListEl.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:#9ca3af;">No movies found.</p>';
+        return;
+      }
+      for (const movie of sorted) {
+        const card = document.createElement('article');
+        card.className = 'movie-card';
+        card.tabIndex = 0;
+        card.setAttribute('aria-label', `${movie.title}, ${movie.genre} genre, released in ${movie.year}, rating ${movie.rating}`);
+        card.innerHTML = `
+          ${movie.posterURL
+            ? `<img src="${movie.posterURL}" alt="Poster of ${movie.title}" class="movie-poster" loading="lazy" />`
+            : `<div class="movie-poster" aria-label="No poster available"></div>`
+          }
+          <div class="movie-content">
+            <h3 class="movie-title">${movie.title}</h3>
+            <div class="movie-meta">${movie.genre} | ${movie.year} | Rating: ${movie.rating.toFixed(1)}</div>
+            <p class="movie-description">${movie.description ? movie.description : ''}</p>
+          </div>
+        `;
+        movieListEl.appendChild(card);
+      }
+    }
+
+    // Handle filter inputs
+    searchInput.addEventListener('input', e => {
+      filters.searchText = e.target.value.trim();
+      renderMovies();
+    });
+    genreSelect.addEventListener('change', e => {
+      filters.genre = e.target.value;
+      renderMovies();
+    });
+
+    // Handle sort buttons
+    function setSortCriteria(criteria) {
+      if (sortCriteria === criteria) {
+        // toggle off if same button clicked
+        sortCriteria = '';
+      } else {
+        sortCriteria = criteria;
+      }
+      updateSortButtons();
+      renderMovies();
+    }
+    function updateSortButtons() {
+      sortRatingBtn.classList.toggle('active', sortCriteria === 'rating');
+      sortYearBtn.classList.toggle('active', sortCriteria === 'year');
+      sortRatingBtn.setAttribute('aria-pressed', sortCriteria === 'rating');
+      sortYearBtn.setAttribute('aria-pressed', sortCriteria === 'year');
+    }
+    sortRatingBtn.addEventListener('click', () => setSortCriteria('rating'));
+    sortYearBtn.addEventListener('click', () => setSortCriteria('year'));
+
+    // Form validation helpers
+    function clearErrors() {
+      ['Title', 'Year', 'Genre', 'Rating'].forEach(field => {
+        document.getElementById('error' + field).textContent = '';
+      });
+    }
+    function validateForm(data) {
+      let valid = true;
+      clearErrors();
+
+      if (!data.title) {
+        document.getElementById('errorTitle').textContent = 'Title is required.';
+        valid = false;
+      }
+      if (!data.year || isNaN(data.year) || data.year < 1800 || data.year > 2100) {
+        document.getElementById('errorYear').textContent = 'Please enter a valid year between 1800 and 2100.';
+        valid = false;
+      }
+      if (!data.genre) {
+        document.getElementById('errorGenre').textContent = 'Genre is required.';
+        valid = false;
+      }
+      if (!data.rating && data.rating !== 0) {
+        document.getElementById('errorRating').textContent = 'Rating is required.';
+        valid = false;
+      } else if (isNaN(data.rating) || data.rating < 0 || data.rating > 10) {
+        document.getElementById('errorRating').textContent = 'Rating must be between 0 and 10.';
+        valid = false;
+      }
+      return valid;
+    }
+
+    // Add movie function
+    function addMovie(movie) {
+      movies.push(movie);
+      // Clear filters and sorts for visibility of the new movie
+      filters.searchText = '';
+      filters.genre = '';
+      sortCriteria = '';
+      searchInput.value = '';
+      genreSelect.value = '';
+      updateSortButtons();
+      renderMovies();
+    }
+
+    // Handle form submission
+    addMovieForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = {
+        title: addMovieForm.movieTitle.value.trim(),
+        year: Number(addMovieForm.movieYear.value),
+        genre: addMovieForm.movieGenre.value,
+        rating: Number(addMovieForm.movieRating.value),
+        description: addMovieForm.movieDescription.value.trim(),
+        posterURL: addMovieForm.moviePosterURL.value.trim()
+      };
+      if (!validateForm(formData)) return;
+
+      addMovie(formData);
+      addMovieForm.reset();
+      // Put focus back to title for better UX
+      addMovieForm.movieTitle.focus();
+    });
+
+    // Initial render
+    renderMovies();
+  </script>
+</body>
+</html>
+
