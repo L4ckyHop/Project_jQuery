@@ -18,8 +18,39 @@ $(document).ready(function() {
             genre: "Фантастика",
             rating: 8.7,
             description: "Невероятный фильм, который основан на реальных событиях",
-            poster: "img/fil.webp",
+            poster: "https://example.com/posters/inception.jpg",
             isFavorite: false
         }
     ];
+    //Функция рендеринга карточек фильмов
+    function renderMovies(movies) {
+        const $container = $('#movies-container');
+        $container.empty();
+        movies.forEach(movie => {
+            const favoriteClass = movie.isFavorite ? 'active' : '';
+            const movieCard = `
+                <div class="movie-card" data-id="${movie.id}">
+                    <img src="${movie.poster}" alt="${movie.title}" class="movie-poster">
+                    <div class="movie-info">
+                        <h3 class="movie-title">${movie.title}</h3>
+                        <div class="movie-meta">
+                            <span>${movie.year}</span> | 
+                            <span>${movie.genre}</span> | 
+                            <span>★ ${movie.rating}</span>
+                        </div>
+                        <p class="description">${movie.description}</p>
+                    </div>
+                    <div class="movie-actions">
+                        <button class="btn favorite-btn ${favoriteClass}" 
+                                data-id="${movie.id}">★</button>
+                        <button class="btn delete-btn" 
+                                data-id="${movie.id}">Удалить</button>
+                    </div>
+                </div>
+            `;
+            $container.append(movieCard);
+        });
+        // Назначаем обработчики событий
+        bindEvents();
+    }
 });
