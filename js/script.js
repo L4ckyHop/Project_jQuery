@@ -53,4 +53,31 @@ $(document).ready(function() {
         // Назначаем обработчики событий
         bindEvents();
     }
+    //Назначение обработчиков событий
+    function bindEvents() {
+        //Обработчик для кнопки "Удалить"
+        $('.delete-btn').click(function() {
+            const movieId = $(this).data('id');
+            if (window.confirmDeleteMovie) {
+                window.confirmDeleteMovie(movieId);
+            }
+        });
+        //Обработчик для кнопки "Избранное"
+        $('.favorite-btn').click(function() {
+            const movieId = $(this).data('id');
+            const isFavorite = !$(this).hasClass('active');
+            
+            if (window.toggleFavoriteMovie) {
+                window.toggleFavoriteMovie(movieId, isFavorite);
+            }
+            // Визуальная обратная связь
+            $(this).toggleClass('active', isFavorite);
+        });
+    }
+    // Инициализация рендеринга
+    renderMovies(mockMovies);
+    //API для других модулей
+    window.movieRenderer = {
+        renderMovies: renderMovies
+    };
 });
