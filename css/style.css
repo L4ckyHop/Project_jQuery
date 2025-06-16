@@ -77,28 +77,23 @@ h1 {
     background: rgba(255,255,255,0.2);
     transform: translateY(-2px);
 }
-
 .tab.active {
     background: white;
     color: #ff5722;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
-
 .tab-content {
     display: none;
     padding: 25px;
 }
-
 .tab-content.active {
     display: block;
     animation: fadeIn 0.5s ease;
 }
-
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
 .controls {
     display: flex;
     flex-wrap: wrap;
@@ -107,9 +102,9 @@ h1 {
     padding: 15px;
     background: rgba(255,255,255,0.05);
     border-radius: 8px;
+    color: orange;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
 .controls input, .controls select {
     padding: 12px 15px;
     border: 1px solid #333;
@@ -125,11 +120,9 @@ h1 {
     outline: none;
     box-shadow: 0 0 0 2px rgba(255, 152, 0, 0.3);
 }
-
 .controls input::placeholder {
     color: #777;
 }
-
 .controls button {
     padding: 12px 20px;
     border: none;
@@ -142,19 +135,16 @@ h1 {
     color: white;
     box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
-
 .controls button:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
 }
-
 .movies-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     gap: 25px;
     padding: 10px;
 }
-
 .movie-card {
     border: 1px solid #333;
     border-radius: 10px;
@@ -164,13 +154,11 @@ h1 {
     position: relative;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
-
 .movie-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 20px rgba(0,0,0,0.4);
     border-color: rgba(255, 152, 0, 0.3);
 }
-
 .movie-poster {
     width: 100%;
     height: 380px;
@@ -178,22 +166,18 @@ h1 {
     border-bottom: 1px solid #333;
     transition: transform 0.5s ease;
 }
-
 .movie-card:hover .movie-poster {
     transform: scale(1.03);
 }
-
 .movie-info {
     padding: 18px;
 }
-
 .movie-title {
     font-size: 1.3rem;
     margin: 0 0 8px;
     color: var(--text-primary);
     font-weight: 700;
 }
-
 .movie-meta {
     color: var(--accent-primary);
     font-size: 0.95rem;
@@ -202,7 +186,6 @@ h1 {
     gap: 10px;
     flex-wrap: wrap;
 }
-
 .description {
     font-size: 0.95rem;
     color: var(--text-secondary);
@@ -214,7 +197,6 @@ h1 {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
-
 .movie-actions {
     display: flex;
     justify-content: space-between;
@@ -222,7 +204,6 @@ h1 {
     border-top: 1px solid #333;
     background: rgba(0,0,0,0.2);
 }
-
 .btn {
     padding: 8px 15px;
     border: none;
@@ -232,44 +213,36 @@ h1 {
     font-size: 0.95rem;
     font-weight: 600;
 }
-
 .favorite-btn {
     background: transparent;
     color: #777;
     border: 1px solid #444;
 }
-
 .favorite-btn:hover {
     background: rgba(255, 152, 0, 0.1);
     color: #ff9800;
 }
-
 .favorite-btn.active {
     background: rgba(255, 152, 0, 0.2);
     color: #ff9800;
     border-color: #ff9800;
 }
-
 .delete-btn {
     background: rgba(255, 87, 34, 0.15);
     color: #ff5722;
     border: 1px solid rgba(255, 87, 34, 0.3);
 }
-
 .delete-btn:hover {
     background: rgba(255, 87, 34, 0.25);
 }
-
 .details-btn {
     background: rgba(255, 152, 0, 0.15);
     color: #ff9800;
     border: 1px solid rgba(255, 152, 0, 0.3);
 }
-
 .details-btn:hover {
     background: rgba(255, 152, 0, 0.25);
 }
-
 /* Форма добавления */
 #add-movie-form {
     max-width: 650px;
@@ -279,26 +252,22 @@ h1 {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
-
 #add-movie-form h2 {
     text-align: center;
     color: var(--accent-primary);
     margin-top: 0;
     margin-bottom: 25px;
 }
-
 .form-group {
     margin-bottom: 20px;
     color: orange;
 }
-
 .form-group label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
     color: var(--accent-primary);
 }
-
 .form-group input, 
 .form-group select, 
 .form-group textarea {
@@ -311,7 +280,6 @@ h1 {
     color: orange;
     transition: all 0.3s;
 }
-
 .form-group input:focus, 
 .form-group select:focus, 
 .form-group textarea:focus {
@@ -319,12 +287,10 @@ h1 {
     outline: none;
     box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);
 }
-
 .form-group textarea {
     height: 120px;
     resize: vertical;
 }
-
 #add-movie-form button {
     background: linear-gradient(to right, #ff5722, #ff9800);
     color: white;
@@ -340,33 +306,28 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-
 #add-movie-form button:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.4);
 }
-
 .poster-preview {
     margin-top: 15px;
     padding: 15px;
     background: rgba(0,0,0,0.2);
     border-radius: 8px;
 }
-
 .poster-preview p {
     margin-top: 0;
     margin-bottom: 12px;
     color: var(--accent-primary);
     font-weight: 600;
 }
-
 .poster-options {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 10px;
 }
-
 .poster-options img {
     width: 70px;
     height: 105px;
@@ -377,12 +338,10 @@ h1 {
     transition: all 0.3s ease;
     box-shadow: 0 3px 6px rgba(0,0,0,0.3);
 }
-
 .poster-options img:hover {
     border-color: #ff9800;
     transform: scale(1.1);
 }
-
 .no-results {
     text-align: center;
     padding: 40px 20px;
@@ -390,21 +349,18 @@ h1 {
     color: #777;
     font-size: 1.2rem;
 }
-
 /* Анимация загрузки */
 @keyframes pulse {
     0% { transform: scale(0.95); opacity: 0.7; }
     50% { transform: scale(1); opacity: 1; }
     100% { transform: scale(0.95); opacity: 0.7; }
 }
-
 .loading {
     display: flex;
     justify-content: center;
     padding: 40px;
     grid-column: 1 / -1;
 }
-
 .loading::after {
     content: "";
     width: 50px;
@@ -414,58 +370,46 @@ h1 {
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
-
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
-
 /* Адаптивность */
 @media (max-width: 768px) {
     .movies-container {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         gap: 20px;
     }
-    
     .controls {
         flex-direction: column;
     }
-    
     .controls > * {
         width: 100%;
     }
-    
     h1 {
         font-size: 2.2rem;
     }
-    
     .tabs {
         flex-wrap: wrap;
     }
-    
     .tab {
         margin: 5px;
         flex: 1;
         text-align: center;
     }
 }
-
 @media (max-width: 480px) {
     body {
         padding: 10px;
     }
-    
     .movies-container {
         grid-template-columns: 1fr;
     }
-    
     .movie-poster {
         height: 320px;
     }
-    
     header {
         padding: 20px 15px;
     }
-    
     h1 {
         font-size: 1.8rem;
     }
