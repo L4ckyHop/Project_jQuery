@@ -1,15 +1,108 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8"><!-- Кодировка -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- мета данные -->
-    <title>Сайт для просмотра кино</title><!-- Название сайта -->
-    <link rel="stylesheet" href="css/style.css"><!-- Подключение стилей -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог фильмов</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <div class="container"><!-- Контейнер -->
-
+    <div id="app">
+        <header>
+            <h1>Каталог фильмов</h1>
+            <div class="tabs">
+                <button class="tab active" data-tab="movies">Все фильмы</button>
+                <button class="tab" data-tab="favorites">Избранное</button>
+                <button class="tab" data-tab="add">Добавить фильм</button>
+            </div>
+        </header>
+        <div class="tab-content active" id="movies-tab">
+            <div class="controls">
+                <input type="text" id="search" placeholder="Поиск по названию...">
+                <select id="genre-filter">
+                    <option value="all">Все жанры</option>
+                </select>
+                <button id="sort-rating">Сортировать по рейтингу</button>
+                <button id="sort-year">Сортировать по году</button>
+            </div>
+            
+            <div id="movies-container" class="movies-container">
+                <!-- Карточки фильмов будут здесь -->
+            </div>
+        </div>
+        <div class="tab-content" id="favorites-tab">
+            <h2>❤️ Избранные фильмы</h2>
+            <div id="favorites-container" class="movies-container">
+                <!-- Избранные фильмы будут здесь -->
+            </div>
+        </div>
+        <div class="tab-content" id="add-tab">
+            <h2>➕ Добавить новый фильм</h2>
+            <form id="add-movie-form">
+                <div class="form-group">
+                    <label for="title">Название фильма</label>
+                    <input type="text" id="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="year">Год выпуска</label>
+                    <input type="number" id="year" min="1900" max="2025" required>
+                </div>
+                <div class="form-group">
+                    <label for="genre">Жанр</label>
+                    <select id="genre" required>
+                        <option value="">Выберите жанр</option>
+                        <option value="Фантастика">Фантастика</option>
+                        <option value="Драма">Драма</option>
+                        <option value="Комедия">Комедия</option>
+                        <option value="Ужасы">Ужасы</option>
+                        <option value="Мультфильм">Мультфильм</option>
+                        <option value="Боевик">Боевик</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Рейтинг (0-10)</label>
+                    <input type="number" id="rating" min="0" max="10" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Описание</label>
+                    <textarea id="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="poster">Постер (URL или имя файла)</label>
+                    <input type="text" id="poster" placeholder="img/fil.webp" required>
+                    <div class="poster-preview"><!-- Постеры -->
+                        <p>Доступные постеры:</p>
+                        <div class="poster-options">
+                            <img src="img/int.jpg" data-name="int.jpg">
+                            <img src="img/Term.jpg" data-name="Term.webp">
+                            <img src="img/Mstit.webp" data-name="Mstit.webp">
+                            <img src="img/fil.webp" data-name="fil.webp">
+                            <img src="img/fnaf.jpg" data-name="fnaf.jpg">
+                            <img src="img/min.webp" data-name="min.webp">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit">Добавить фильм</button><!-- Кнопка -->
+            </form>
+        </div>
     </div>
-    <script src="js/script.js"></script><!-- Подключение скриптов -->
+    <!-- Подключение всех скриптов -->
+    <script src="js/data.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Инициализация всех модулей
+        movieData.init();
+        movieRenderer.init();
+        movieFilters.init();
+        movieUI.init();
+    });
+    </script>
 </body>
 </html>
